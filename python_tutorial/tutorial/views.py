@@ -10,18 +10,20 @@ import subprocess
 import pytz
 import bluetooth
 
-# Create your views here.
+# Renders the sign in page, which will redirect to OAuth Login
 def home(request):
   redirect_uri = request.build_absolute_uri(reverse('tutorial:gettoken'))
   sign_in_url = get_signin_url(redirect_uri)
   context = {'sign_in_url' : sign_in_url}
   return render(request, 'tutorial/index.html', context)
 
+# Changes directory to pi-blaster program, and initializes it
 def run_piblaster():
 	path = "/home/pi/pi-blaster"
 	os.chdir( path )
 	os.system("sudo ./pi-blaster")
 
+# Sends commands to raspi that change its colors
 def red():
 	run_piblaster()
 	
@@ -44,7 +46,8 @@ def green():
 	os.system('echo 18=0 > /dev/pi-blaster')
 	os.system('echo 22=1 > /dev/pi-blaster')
 
-  
+
+# Gets token, allows application to proceed
 def gettoken(request):
   auth_code = request.GET['code']
   redirect_uri = request.build_absolute_uri(reverse('tutorial:gettoken'))
@@ -57,12 +60,15 @@ def gettoken(request):
   request.session['user_email'] = user_email
   return HttpResponseRedirect(reverse('tutorial:events'))
   
+# Events   
 def events(request):
   # Integer to define status. -1 : Unknown, 0: Free, 1: Busy, 2: Out
   status = -1
   access_token = request.session['access_token']
   user_email = request.session['user_email']
 
+  # Monitors events.html to see what GET requests get sent back
+  # TO DO: Change to Django's Dynamic Forms
   if (request.GET.get('red')):
     red()
     status = 1
@@ -86,6 +92,11 @@ def events(request):
     context = []
   time_busy_end = ""
 
+  
+  # For loop that loops through all of the events
+  # returned by get_my_events
+  
+  # formats the events to a format that can be used for date arithmetic
   if access_token:
 	  for i, val in enumerate(events['value']):
 		start = events['value'][i]['Start']['DateTime']
@@ -108,16 +119,25 @@ def events(request):
 			blue()
 			status = 2
 
+  # Default value: Free
   if status == -1:
 	status = 0
 	green()
+	
+	
+    # TO DO: Uncomment for Bluetooth 
   #if bluetooth_scan():
 	#status = 2
 	#blue() 
   status_text = get_status(status)
+  
+  # Renders the events template with each event 
   events = { 'events': context , 'status' : status_text, 'time_busy_end' : time_busy_end}
   return render(request, 'tutorial/events.html', events)
 
+# Scans for the Bluetooth device with the name listed inside the program
+
+# TO DO: Make the name easier to change
 def bluetooth_scan():
 	bt_name = "Bhairav's iPhone"
 	bt_addr = None
@@ -132,9 +152,10 @@ def bluetooth_scan():
 		print "found", bt_addr
 		return True
 	else:
-		print "Not found!:"
+		print "Not found!"
 		return False
 
+# Integer values for status
 def get_status(status):
   return {
         -1: "Unknown",

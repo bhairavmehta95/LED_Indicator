@@ -41,9 +41,11 @@ def make_api_call(method, url, token, user_email, payload = None, parameters = N
         
     return response
     
-    
+# Function that gets all of the events for that day
 def get_my_events(access_token, user_email):
   get_events_url = outlook_api_endpoint.format('/Me/CalendarView')
+  
+  # Formatting
   today = datetime.today()
   today = str(today).partition(' ')[0]
   
@@ -51,6 +53,9 @@ def get_my_events(access_token, user_email):
   end_of_day = 'T23:59:00.0000000'
   start_of_day = today + start_of_day
   end_of_day = today + end_of_day
+  
+  # Selects Subject, Start, and End for all events that fall within the
+  # specified time period
   query_parameters = { '$select' : 'Subject, Start, End',
 					   '$orderby' : 'Start/DateTime ASC',
 					  'startDateTime': start_of_day,
@@ -63,7 +68,9 @@ def get_my_events(access_token, user_email):
   else:
     return "{0}: {1}".format(r.status_code, r.text)
 
+# Creates a busy event on the calendar when the user clicks busy
 
+# TO DO: Replace with Skype for Business API calls
 def create_busy(access_token, user_email):
   # Get the Calendar ID
   get_calendar_url = outlook_api_endpoint.format('/Me/Calendars')
@@ -72,6 +79,7 @@ def create_busy(access_token, user_email):
   r = make_api_call('GET', get_calendar_url, access_token, user_email, parameters = query_parameters)
   default_calendar_id = r.json()['value'][0]['Id']
 
+  # Formats a URL that is with the given calendar_id
   endpoint_formatting_url = '/Me/Calendars/' + default_calendar_id + '/events'
   get_events_url = outlook_api_endpoint.format(endpoint_formatting_url)
 
@@ -83,7 +91,8 @@ def create_busy(access_token, user_email):
 
   start = {"DateTime": start_time, "TimeZone" : 'Central Standard Time'}
   end = {"DateTime": end_time, "TimeZone" : 'Central Standard Time'}
-
+ 
+  # Creates a 30 minute "Busy" Event, DOES NOT remind the person 
   query_parameters = {
 			"Subject": "Busy",
 			"Start" : start,
@@ -92,11 +101,14 @@ def create_busy(access_token, user_email):
   }
 
   r = make_api_call('POST', get_events_url, access_token, user_email, query_parameters)
+  
+  # 201: Event posted successfully
   if (r.status_code == requests.codes.ok or r.status_code == 201):
     print "BUSYEVENT posted successfully\n"
   else:
     print ("BUSYEVENT post UNSUCCESSFUL\n")
 
+# If there is an event created by BUSY, will delete that event
 def delete_busy_event(access_token, user_email):
   events = get_my_events(access_token, user_email)
   busy_event = ""
@@ -115,6 +127,9 @@ def delete_busy_event(access_token, user_email):
     r = make_api_call('DELETE', get_events_url, access_token, user_email)
     print "{0}: {1}".format(r.status_code, r.text)
 
+# Prolongs time of a busy event by an additional 30 minutes
+
+# TO DO: Not currently implemented, needs formatting fix!
 def add_time_busy(access_token, user_email):
   events = get_my_events(access_token, user_email)
   busy_event = ""
