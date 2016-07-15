@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+
 urlpatterns = patterns('',
     # Invoke the home view in the tutorial app by default
     url(r'^$', 'tutorial.views.home', name='home'),

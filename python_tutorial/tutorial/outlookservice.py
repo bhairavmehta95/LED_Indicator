@@ -3,7 +3,7 @@ import requests
 import uuid
 import json 
 from datetime import datetime, timedelta
-
+import pytz
 
 outlook_api_endpoint = 'https://outlook.office.com/api/v2.0{0}'
 
@@ -84,8 +84,9 @@ def create_busy(access_token, user_email):
   get_events_url = outlook_api_endpoint.format(endpoint_formatting_url)
 
   now = datetime.now()
-  end_time = now + timedelta(minutes = 30)
-  start_time = now
+  adjust = timedelta(hours=5)
+  end_time = now + timedelta(minutes = 30) + adjust
+  start_time = now + adjust
   start_time = str(start_time).partition('.')[0]
   end_time = str(end_time).partition('.')[0]
 

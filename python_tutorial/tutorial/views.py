@@ -5,10 +5,12 @@ from tutorial.authhelper import get_signin_url, get_token_from_code, get_user_em
 from tutorial.outlookservice import get_my_events, create_busy, delete_busy_event, add_time_busy
 from datetime import datetime, timedelta
 from time import sleep
+from sems_api import send_post
 import os
 import subprocess
 import pytz
 import bluetooth
+
 
 # Renders the sign in page, which will redirect to OAuth Login
 def home(request):
@@ -66,7 +68,7 @@ def events(request):
   status = -1
   access_token = request.session['access_token']
   user_email = request.session['user_email']
-
+  
   # Monitors events.html to see what GET requests get sent back
   # TO DO: Change to Django's Dynamic Forms
   if (request.GET.get('red')):
@@ -97,6 +99,8 @@ def events(request):
   # returned by get_my_events
   
   # formats the events to a format that can be used for date arithmetic
+  # Note from the author: This is awful code to change UTC to CDT
+  # Obviously a better way to do this, please find it!
   if access_token:
 	  for i, val in enumerate(events['value']):
 		start = events['value'][i]['Start']['DateTime']
@@ -115,6 +119,7 @@ def events(request):
 			context.append(new_dictionary)
 		else:
 			time_busy_end = end
+			# Busy event is posted with CDT, other times are in UTC. TO DO
 		if start_diff <= timedelta(0) and end_diff >= timedelta(0):
 			blue()
 			status = 2
@@ -130,6 +135,9 @@ def events(request):
 	#status = 2
 	#blue() 
   status_text = get_status(status)
+  
+  # send post to the SEMS IoT platform
+  send_post(status_text)
   
   # Renders the events template with each event 
   events = { 'events': context , 'status' : status_text, 'time_busy_end' : time_busy_end}
@@ -163,6 +171,7 @@ def get_status(status):
 		1: "Busy",
         2: "Out",
     }.get(status, "Unknown Error")
+
 
 
 
