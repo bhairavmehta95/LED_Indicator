@@ -11,13 +11,13 @@ The application was configured through the Heroku Deployment services, so to rep
 
 ### Steps to Install or Configure
 
-*Clone this repository (Repo A)
+* Clone this repository (Repo A)
 
-*Create a Python/Django WebApp on Heroku
+* Create a Python/Django WebApp on Heroku
 
-*Clone that repository into another place (Repo B)
+* Clone that repository into another place (Repo B)
 
-*Replace the files of Repo A with the files of Repo B
+* Replace the files of Repo A with the files of Repo B
 
-*Deploy to heroku using the command line (Heroku Toolbelt).
+* Deploy to heroku using the command line (Heroku Toolbelt).
 
