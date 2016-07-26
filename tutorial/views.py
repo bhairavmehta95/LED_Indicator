@@ -134,14 +134,18 @@ def events(request):
 		send_post(status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
 
+		free_state = status_dict['free_state']
+		out_state = status_dict['out_state']
+		busy_state = status_dict['busy_state']
+
 		# Renders the events template with each event 
 		values = { 'events': context, 
 			'status' : status_text, 
 			'time_busy_end' : time_busy_end,
 			'bluetooth_status' : bluetooth_status,
-			# 'free_state' : status_dict['free_state'],
-			# 'out_state' : status_dict['out_state'],
-			# 'busy_state' : status_dict['busy_state'],
+			 'free_state' : free_state,
+			 'out_state' : out_state,
+			 'busy_state' : busy_state,
 		}
 
 		print context, "is context"
