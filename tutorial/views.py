@@ -115,6 +115,7 @@ def events(request):
 			end_diff = end - now
 			subject = events['value'][i]['Subject']
 			new_dictionary = { 'Subject' : subject, 'Start': start, 'End':end }
+			print new_dictionary
 			if subject != "Busy":
 				context.append(new_dictionary)
 			else:
