@@ -99,7 +99,6 @@ def events(request):
 	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
 		for i, val in enumerate(events['value']):
-			print events['value'][i]
 			start = events['value'][i]['Start']['DateTime']
 			adjust = timedelta(hours=5)
 			start = datetime.strptime(start,'%Y-%m-%dT%H:%M:%S.%f0')
@@ -114,6 +113,7 @@ def events(request):
 			new_dictionary = { 'Subject' : subject, 'Start': start, 'End':end }
 			if subject != "Busy":
 				context.append(new_dictionary)
+				print "appending"
 			else:
 				time_busy_end = end
 			if start_diff <= timedelta(0) and end_diff >= timedelta(0) and subject != "Busy":
@@ -134,7 +134,7 @@ def events(request):
 		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
 
 		# Renders the events template with each event 
-		context = { 'events': context , 
+		context = { 'events': context, 
 			'status' : status_text, 
 			'time_busy_end' : time_busy_end,
 			'bluetooth_status' : bluetooth_status,
