@@ -82,6 +82,7 @@ def events(request):
 	else:
 		events = get_my_events(access_token, user_email)
 		context = []
+
 	time_busy_end = ""
 
 	# If for some reason the events are not returned, return to home
@@ -98,6 +99,8 @@ def events(request):
 
 	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
+		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
+
 		for i, val in enumerate(events['value']):
 			start = events['value'][i]['Start']['DateTime']
 			adjust = timedelta(hours=5)
@@ -113,7 +116,6 @@ def events(request):
 			new_dictionary = { 'Subject' : subject, 'Start': start, 'End':end }
 			if subject != "Busy":
 				context.append(new_dictionary)
-				print "appending"
 			else:
 				time_busy_end = end
 			if start_diff <= timedelta(0) and end_diff >= timedelta(0) and subject != "Busy":
@@ -123,8 +125,6 @@ def events(request):
 		if status == -1:
 			status = 0
 
-		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
-		print context
 		try:
 			status_text = status_dict['status']
 		except:
@@ -143,7 +143,6 @@ def events(request):
 			'busy_state' : status_dict['busy_state'],
 		}
 
-		print status_dict
 		return render(request, 'tutorial/events.html', context)
 
 # Integer values for status
