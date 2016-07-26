@@ -1,44 +1,17 @@
-# python-getting-started
+# 3M LEDIndicator
 
-A barebones Python app, which can easily be deployed to Heroku.
+A Python Web App that runs alongside 3M LEDPi (Also on this account) to control LEDs through the 3M SEMS IoT and Web/Serial communication.
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+The app also hooks up to the Microsoft Graph API and uses Bluetooth proximity sensing (see 3M LEDPi) to change lights semi-autonomously.
 
-## Running Locally
+## Website Information
 
-Make sure you have Python [installed properly](http://install.python-guide.org).  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+The web application can be found at https://enigmatic-wildwood-87269.herokuapp.com.
+The application was configured through the Heroku Deployment services, so to reproduce at another url, simply:
 
-```sh
-$ git clone git@github.com:heroku/python-getting-started.git
-$ cd python-getting-started
+Clone this repository (Repo A)
+Create a Python/Django WebApp on Heroku
+Clone that repository into another place (Repo B)
+Replace the files of Repo A with the files of Repo B
+Deploy to heroku using the command line (Heroku Toolbelt).
 
-$ pip install -r requirements.txt
-
-$ createdb python_getting_started
-
-$ python manage.py migrate
-$ python manage.py collectstatic
-
-$ heroku local
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
