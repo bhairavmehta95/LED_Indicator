@@ -99,6 +99,7 @@ def events(request):
 	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
 		for i, val in enumerate(events['value']):
+			print events['value'][i]
 			start = events['value'][i]['Start']['DateTime']
 			adjust = timedelta(hours=5)
 			start = datetime.strptime(start,'%Y-%m-%dT%H:%M:%S.%f0')
