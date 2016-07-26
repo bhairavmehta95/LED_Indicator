@@ -45,9 +45,9 @@
 
       // Create the data table.
       var data = new google.visualization.DataTable();
-      var free = {{ status_dict['free_state'] }};
-      var out = {{ status_dict['out_state']}};
-      var busy = {{ status_dict['busy_state'] }};
+      var free = {{ free_state }};
+      var out = {{ out_state }};
+      var busy = {{ busy_state }};
       data.addColumn('string', 'Status');
       data.addColumn('number', 'Time');
       data.addRows([

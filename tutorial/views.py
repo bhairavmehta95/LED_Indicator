@@ -125,7 +125,9 @@ def events(request):
 			'status' : status_text, 
 			'time_busy_end' : time_busy_end,
 			'bluetooth_status' : bluetooth_status,
-			'status_dict' : status_dict,
+			'free_state' : status_dict['free_state'],
+			'out_state' : status_dict['out_state'],
+			'busy_state' : status_dict['busy_state'],
 		}
 
 		print status_dict
