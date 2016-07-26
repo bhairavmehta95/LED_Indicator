@@ -99,7 +99,7 @@ def events(request):
 	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
 		events = get_my_events(access_token, user_email)
-		#status_dict = check_if_visualize(request, HEADERS_SEMS_API)
+		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
 		print events['value'], "is events value"
 		for i, val in enumerate(events['value']):
 			start = events['value'][i]['Start']['DateTime']
