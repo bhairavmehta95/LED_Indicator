@@ -62,9 +62,10 @@
         ['Busy', busy],
       ]);
 
+      var height = window.innerHeight / 2;
       // Set chart options
-      var options = {'width':400,
-                     'height':300,
+      var options = {'width':window.innerWidth,
+                     'height': height,
                      'colors': ['#7fff00', '#0099cc', '#ff3030']
                     };
 
@@ -177,7 +178,7 @@
                 </div>
             </div>
 
-            <div class = "chart_div" id = "chart_div"> </div>
+            <div id = "chart_div"> </div>
             <!-- /.row -->
         </div>
         <!-- /.container -->
