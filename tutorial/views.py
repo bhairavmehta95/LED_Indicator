@@ -125,11 +125,10 @@ def events(request):
 		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
 		
 		try:
-			status = status_dict['status']
+			status_text = status_dict['status']
 		except:
-			pass
+			status_text = get_status(status)
 
-		status_text = get_status(status)
 		send_post(status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
 

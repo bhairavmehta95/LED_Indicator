@@ -130,7 +130,7 @@ def get_visualize_data(minutes, headers):
 			elif entry['status'] == 'Out':
 				out_state += 1
 			elif entry['status'] == 'Busy':
-				out_state += 1
+				busy_state += 1
 			total_state +=  1
 		except:
 			pass
