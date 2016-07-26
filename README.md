@@ -9,8 +9,8 @@ The app also hooks up to the Microsoft Graph API and uses Bluetooth proximity se
 The web application can be found at https://enigmatic-wildwood-87269.herokuapp.com.
 The application was configured through the Heroku Deployment services, so to reproduce at another url, simply:
 
-Clone this repository (Repo A)
-Create a Python/Django WebApp on Heroku
+Clone this repository (Repo A) \n
+Create a Python/Django WebApp on Heroku \n
 Clone that repository into another place (Repo B)
 Replace the files of Repo A with the files of Repo B
 Deploy to heroku using the command line (Heroku Toolbelt).
