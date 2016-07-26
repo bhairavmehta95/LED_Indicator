@@ -85,10 +85,10 @@ def events(request):
 	time_busy_end = ""
 
 	# If for some reason the events are not returned, return to home
-	try:
-		events['value']
-	except:
-		return HttpResponseRedirect(reverse('tutorial:home'))
+	# try:
+	# 	events['value']
+	# except:
+	# 	return HttpResponseRedirect(reverse('tutorial:home'))
 
 	
 	# For loop that loops through all of the events
