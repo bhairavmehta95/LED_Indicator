@@ -100,7 +100,7 @@ def events(request):
 	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
 		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
-
+		print events['value'], "is events value"
 		for i, val in enumerate(events['value']):
 			start = events['value'][i]['Start']['DateTime']
 			adjust = timedelta(hours=5)
@@ -134,7 +134,7 @@ def events(request):
 		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
 
 		# Renders the events template with each event 
-		context = { 'events': context, 
+		values = { 'events': context, 
 			'status' : status_text, 
 			'time_busy_end' : time_busy_end,
 			'bluetooth_status' : bluetooth_status,
@@ -143,7 +143,9 @@ def events(request):
 			'busy_state' : status_dict['busy_state'],
 		}
 
-		return render(request, 'tutorial/events.html', context)
+		print context, "is context"
+
+		return render(request, 'tutorial/events.html', values)
 
 # Integer values for status
 def get_status(status):
