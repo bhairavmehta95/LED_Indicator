@@ -128,16 +128,8 @@ def events(request):
 			'status_dict' : status_dict,
 		}
 
+		print status_dict
 		return render(request, 'tutorial/events.html', context)
-
-def visualize(request):
-	minutes = '30'
-	get_visualize_data(minutes)
-	context = {
-		'minutes' : minutes,
-	}
-	return render(request, 'tutorial/visualize.html', context)
-
 
 # Integer values for status
 def get_status(status):
