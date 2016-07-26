@@ -40,11 +40,11 @@ def gettoken(request):
 
 def check_if_visualize(request, HEADERS_SEMS_API):
 	minutes = 60 * 24
-	if request.POST.get('day', ''):
+	if request.POST.get('Day', ''):
 		minutes = 60 * 24
-	elif request.POST.get('week', ''):
+	elif request.POST.get('Week', ''):
 		minutes = 60 * 24 * 7
-	elif request.POST.get('month', ''):
+	elif request.POST.get('Month', ''):
 		minutes = 60 * 24 * 30
 	
 	status_dictionary = get_visualize_data(minutes, HEADERS_SEMS_API)
