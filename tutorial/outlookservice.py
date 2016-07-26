@@ -63,7 +63,6 @@ def get_my_events(access_token, user_email):
                       
   r = make_api_call('GET', get_events_url, access_token, user_email, parameters = query_parameters)
   if (r.status_code == requests.codes.ok):
-    print r.json()
     return r.json()
   else:
     return "{0}: {1}".format(r.status_code, r.text)
