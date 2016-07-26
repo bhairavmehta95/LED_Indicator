@@ -56,6 +56,7 @@
       var busy = {{ busy_state }};
       data.addColumn('string', 'Status');
       data.addColumn('number', 'Time');
+
       data.addRows([
         ['Free', free],
         ['Out', out],
@@ -66,7 +67,8 @@
       // Set chart options
       var options = {'width':window.innerWidth,
                      'height': height,
-                     'colors': ['#7fff00', '#0099cc', '#ff3030']
+                     'colors': ['#7fff00', '#0099cc', '#ff3030'],
+                     'is3D' : true,
                     };
 
       // Instantiate and draw our chart, passing in some options.

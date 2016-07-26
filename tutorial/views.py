@@ -123,7 +123,7 @@ def events(request):
 			status = 0
 
 		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
-		
+		print context
 		try:
 			status_text = status_dict['status']
 		except:
