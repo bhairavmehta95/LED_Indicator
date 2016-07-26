@@ -10,10 +10,8 @@ import os
 import subprocess
 import pytz
 
-from sems_api import send_post, connect, get_bluetooth_status, get_visualize_data
+from sems_api import send_post, connect, get_bluetooth_status, get_visualize_data, get_most_recent_status
 
-## TO DO
-#import bluetooth
 
 HEADERS_SEMS_API = {}
 
@@ -40,14 +38,21 @@ def gettoken(request):
 
 def check_if_visualize(request, HEADERS_SEMS_API):
 	minutes = 60 * 24
+	visualize_request = False
 	if request.POST.get('Day', False):
 		minutes = 60 * 24
+		visualize_request = True
 	elif request.POST.get('Week', False):
 		minutes = 60 * 24 * 7
+		visualize_request = True
 	elif request.POST.get('Month', False):
 		minutes = 60 * 24 * 30
+		visualize_request = True
 	
 	status_dictionary = get_visualize_data(minutes, HEADERS_SEMS_API)
+	if visualize_request:
+		status = get_most_recent_status(HEADERS_SEMS_API)
+		status_dictionary['status'] = status
 
 	return status_dictionary
 	
@@ -90,6 +95,8 @@ def events(request):
 	# returned by get_my_events
 	
 	# formats the events to a format that can be used for date arithmetic
+
+	# TO DO: Find less awful way to convert time from UTC to CST
 	if access_token:
 		for i, val in enumerate(events['value']):
 			start = events['value'][i]['Start']['DateTime']
@@ -115,8 +122,14 @@ def events(request):
 		if status == -1:
 			status = 0
 
-		status_text = get_status(status)
 		status_dict = check_if_visualize(request, HEADERS_SEMS_API)
+		
+		try:
+			status = status_dict['status']
+		except:
+			pass
+
+		status_text = get_status(status)
 		send_post(status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
 

@@ -84,6 +84,29 @@ def get_bluetooth_status(headers):
 
 	return bluetooth_status
 
+def get_most_recent_status(headers):
+	query_parameters_get = {
+		"serialNumber" : "123456123456",
+   		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
+    	"apiKey": "gcT1vVuu=gwwspFsjkwg2hh2zFPDmmlWJanTSDq7pktnT",
+	}
+
+	get_url = BASE_URL + "/api/Data?request.applicationId=EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC%20&request.aPIKeyValue=InATu7b3CgBJsCUWfu%3D964d1fZdK1HKqgbs5K%3DetEYqzB&request.serialNumber=123456123456&request.lastXMinutes=120&request.historical=true"
+	response = requests.get(get_url, headers = headers, data = json.dumps(query_parameters_get))
+	#print "Here is the status code: ", response.status_code
+	response_json = response.json()
+	#print response_json
+
+	# Default
+	status = 'Free'
+	for entry in response_json['Data']:
+		try:
+			if entry['status'] != '':
+				status = entry['status']
+		except:
+			pass
+
+	return status
 
 def get_visualize_data(minutes, headers):
 	query_parameters_get = {
