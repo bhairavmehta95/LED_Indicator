@@ -50,7 +50,7 @@ def check_if_visualize(request, HEADERS_SEMS_API):
 		minutes = 60 * 24 * 30
 		visualize_request = True
 
-	request.session['user_email'] = user_email
+	user_email = request.session['user_email']
 	user = user_email.split('@')
 	
 	status_dictionary = get_visualize_data(user, minutes, HEADERS_SEMS_API)
