@@ -148,6 +148,8 @@ def events(request):
 		except:
 			device_id = get_latest_device_for_user(user, HEADERS_SEMS_API)
 
+		print device_id, 'is device id!'
+
 		send_post(user, status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(user, HEADERS_SEMS_API)
 
