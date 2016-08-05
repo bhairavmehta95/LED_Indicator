@@ -11,6 +11,8 @@ urlpatterns = patterns('',
   url(r'^gettoken/$', views.gettoken, name='gettoken'),
   # Events view ('/tutorial/events/')
   url(r'^events/$', views.events, name='events'),  
+  #device register (/tutorial/device_register/)
+  url(r'^device_register/$', views.device_register, name='device_register'), 
 ) 
 
 # MIT License: 

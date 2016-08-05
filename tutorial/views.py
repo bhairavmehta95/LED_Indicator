@@ -35,7 +35,10 @@ def gettoken(request):
 	request.session['access_token'] = access_token
 	request.session['user_email'] = user_email
 
-	return HttpResponseRedirect(reverse('tutorial:events'))
+	return HttpResponseRedirect(reverse('tutorial:device_register'))
+
+def device_register(request):
+	return render(request, 'tutorial/device_register.html')
 
 def check_if_visualize(request, HEADERS_SEMS_API):
 	minutes = 60 * 24
@@ -138,6 +141,13 @@ def events(request):
 
 		user = user_email.split('@')[0]
 
+		device_id = None
+
+		try:
+			device_id = request.POST.get('device_id', False)
+		except:
+			device_id = get_latest_device_for_user(user, HEADERS_SEMS_API)
+
 		send_post(user, status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(user, HEADERS_SEMS_API)
 
@@ -153,6 +163,7 @@ def events(request):
 			 'free_state' : free_state,
 			 'out_state' : out_state,
 			 'busy_state' : busy_state,
+			 'device_id' : device_id,
 		}
 
 		print context, "is context"

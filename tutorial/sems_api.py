@@ -146,3 +146,24 @@ def get_visualize_data(user, minutes, headers):
 		}
 
 	return status_dict
+
+def get_latest_device_for_user(user, headers):
+	query_parameters_get = {
+		"serialNumber" : "123456123456",
+   		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
+    	"apiKey": "gcT1vVuu=gwwspFsjkwg2hh2zFPDmmlWJanTSDq7pktnT",
+	}
+
+	get_url = BASE_URL + "/api/Data?request.applicationId=EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC%20&request.aPIKeyValue=InATu7b3CgBJsCUWfu%3D964d1fZdK1HKqgbs5K%3DetEYqzB&request.serialNumber=123456123456&request.lastXMinutes=120&request.historical=true"
+	response = requests.get(get_url, headers = headers, data = json.dumps(query_parameters_get))
+	#print "Here is the status code: ", response.status_code
+	response_json = response.json()
+	device_id = None
+	for entry in response_json['Data']:
+		try:
+			if entry['user'] == user:
+				device_id = entry['device_id']
+		except:
+			pass
+
+	return device_id
