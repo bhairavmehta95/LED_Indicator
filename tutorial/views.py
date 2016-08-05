@@ -147,6 +147,11 @@ def events(request):
 
 		device_id = None
 
+		try:
+			device_id = request.POST.get('device_id', False)
+		except:
+			device_id = get_latest_device_for_user(user, HEADERS_SEMS_API)
+
 		send_post(user, device_id, status_text, HEADERS_SEMS_API)
 		bluetooth_status = get_bluetooth_status(user, device_id, HEADERS_SEMS_API)
 
