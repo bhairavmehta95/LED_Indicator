@@ -62,7 +62,7 @@ def send_post(user, device_id, status_text, headers):
 	#print response.json()
 
 
-def get_bluetooth_status(user, device_id headers):
+def get_bluetooth_status(user, device_id, headers):
 	query_parameters_get = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
