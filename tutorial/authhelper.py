@@ -23,9 +23,7 @@ token_url = '{0}{1}'.format(authority, '/common/oauth2/v2.0/token')
 # The scopes required by the app
 scopes = [ 'openid',
            'profile',
-           'https://outlook.office.com/mail.read',
            'https://outlook.office.com/calendars.readwrite',
-           'https://outlook.office.com/contacts.read',
 ]
 
 def get_signin_url(redirect_uri):
