@@ -34,6 +34,7 @@ def gettoken(request):
 	# Save the token in the session, send user to events homepage
 	request.session['access_token'] = access_token
 	request.session['user_email'] = user_email
+
 	return HttpResponseRedirect(reverse('tutorial:events'))
 
 def check_if_visualize(request, HEADERS_SEMS_API):
@@ -49,9 +50,12 @@ def check_if_visualize(request, HEADERS_SEMS_API):
 		minutes = 60 * 24 * 30
 		visualize_request = True
 	
-	status_dictionary = get_visualize_data(minutes, HEADERS_SEMS_API)
+	status_dictionary = get_visualize_data(user, minutes, HEADERS_SEMS_API)
+	request.session['user_email'] = user_email
+	user = user_email.split('@')
+
 	if visualize_request:
-		status = get_most_recent_status(HEADERS_SEMS_API)
+		status = get_most_recent_status(user, HEADERS_SEMS_API)
 		status_dictionary['status'] = status
 
 	return status_dictionary
@@ -131,8 +135,10 @@ def events(request):
 		except:
 			status_text = get_status(status)
 
-		send_post(status_text, HEADERS_SEMS_API)
-		bluetooth_status = get_bluetooth_status(HEADERS_SEMS_API)
+		user = user_email.split('@')[0]
+
+		send_post(user, status_text, HEADERS_SEMS_API)
+		bluetooth_status = get_bluetooth_status(user, HEADERS_SEMS_API)
 
 		free_state = status_dict['free_state']
 		out_state = status_dict['out_state']

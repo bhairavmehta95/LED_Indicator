@@ -34,12 +34,13 @@ def connect():
 	headers.update( { 'Authorization' : Authorization } )
 	return headers
 
-def send_post(status_text, headers):
+def send_post(user, status_text, headers):
 	query_parameters_post = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
     	"apiKey": "gcT1vVuu=gwwspFsjkwg2hh2zFPDmmlWJanTSDq7pktnT",
 		"status" : status_text,
+		"user" : user,
 		"deviceDataTypeCode" : "HEARTBEAT"
 	}
 
@@ -60,7 +61,7 @@ def send_post(status_text, headers):
 	#print response.json()
 
 
-def get_bluetooth_status(headers):
+def get_bluetooth_status(user, headers):
 	query_parameters_get = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
@@ -77,14 +78,15 @@ def get_bluetooth_status(headers):
 	bluetooth_status = 'Missing'
 	for entry in response_json['Data']:
 		try:
-			if entry['bluetooth_status'] != '':
-				bluetooth_status = entry['bluetooth_status']
+			if entry['user'] == user:
+				if entry['bluetooth_status'] != '':
+					bluetooth_status = entry['bluetooth_status']
 		except:
 			pass
 
 	return bluetooth_status
 
-def get_most_recent_status(headers):
+def get_most_recent_status(user, headers):
 	query_parameters_get = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
@@ -101,14 +103,15 @@ def get_most_recent_status(headers):
 	status = 'Free'
 	for entry in response_json['Data']:
 		try:
-			if entry['status'] != '':
-				status = entry['status']
+			if entry['user'] == user:
+				if entry['status'] != '':
+					status = entry['status']
 		except:
 			pass
 
 	return status
 
-def get_visualize_data(minutes, headers):
+def get_visualize_data(user, minutes, headers):
 	query_parameters_get = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
@@ -125,13 +128,14 @@ def get_visualize_data(minutes, headers):
 	total_state = 0
 	for entry in response_json['Data']:
 		try:
-			if entry['status'] == 'Free':
-				free_state += 1
-			elif entry['status'] == 'Out':
-				out_state += 1
-			elif entry['status'] == 'Busy':
-				busy_state += 1
-			total_state +=  1
+			if entry['user'] == user:
+				if entry['status'] == 'Free':
+					free_state += 1
+				elif entry['status'] == 'Out':
+					out_state += 1
+				elif entry['status'] == 'Busy':
+					busy_state += 1
+				total_state +=  1
 		except:
 			pass
 
