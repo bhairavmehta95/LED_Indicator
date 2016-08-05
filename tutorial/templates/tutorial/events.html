@@ -93,7 +93,8 @@
     <header id="top" class="header">
         <div class="text-vertical-center">
 		<h1>Your Events</h1>
-		<h3> Your Current Status: {{ status }} </h3>
+		<h3> Your Current Status: {{ status }} </h3> <br>
+    <h5> You are currently connected to: {{ device_id }} </h5>
 		{% if status == "Busy" %}
 		<br>
 		<h4> <b> Remember: </b> You Will Only Be In Busy Mode Until: {{ time_busy_end }} </h4>

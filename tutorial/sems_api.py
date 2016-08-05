@@ -34,13 +34,14 @@ def connect():
 	headers.update( { 'Authorization' : Authorization } )
 	return headers
 
-def send_post(user, status_text, headers):
+def send_post(user, device_id, status_text, headers):
 	query_parameters_post = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
     	"apiKey": "gcT1vVuu=gwwspFsjkwg2hh2zFPDmmlWJanTSDq7pktnT",
 		"status" : status_text,
 		"user" : user,
+		"device_id" : device_id,
 		"deviceDataTypeCode" : "HEARTBEAT"
 	}
 
@@ -61,7 +62,7 @@ def send_post(user, status_text, headers):
 	#print response.json()
 
 
-def get_bluetooth_status(user, headers):
+def get_bluetooth_status(user, device_id headers):
 	query_parameters_get = {
 		"serialNumber" : "123456123456",
    		"applicationId": "EBE05BA5-74A7-4152-9BF4-1EE5A9A64CDC",
@@ -78,7 +79,7 @@ def get_bluetooth_status(user, headers):
 	bluetooth_status = 'Missing'
 	for entry in response_json['Data']:
 		try:
-			if entry['user'] == user:
+			if entry['user'] == user and entry['device_id'] == device_id:
 				if entry['bluetooth_status'] != '':
 					bluetooth_status = entry['bluetooth_status']
 		except:

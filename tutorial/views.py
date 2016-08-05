@@ -98,6 +98,10 @@ def events(request):
 	# except:
 	# 	return HttpResponseRedirect(reverse('tutorial:home'))
 
+	try:
+		device_id = request.POST.get('device_id', False)
+	except:
+		device_id = get_latest_device_for_user(user, HEADERS_SEMS_API)
 	
 	# For loop that loops through all of the events
 	# returned by get_my_events
@@ -143,15 +147,8 @@ def events(request):
 
 		device_id = None
 
-		try:
-			device_id = request.POST.get('device_id', False)
-		except:
-			device_id = get_latest_device_for_user(user, HEADERS_SEMS_API)
-
-		print device_id, 'is device id!'
-
-		send_post(user, status_text, HEADERS_SEMS_API)
-		bluetooth_status = get_bluetooth_status(user, HEADERS_SEMS_API)
+		send_post(user, device_id, status_text, HEADERS_SEMS_API)
+		bluetooth_status = get_bluetooth_status(user, device_id, HEADERS_SEMS_API)
 
 		free_state = status_dict['free_state']
 		out_state = status_dict['out_state']
