@@ -148,7 +148,7 @@ def events(request):
 		device_id = None
 
 		try:
-			device_id = request.POST.get('device_id', False)
+			device_id = request.POST.get('device_id', None)
 		except:
 			pass
 
