@@ -10,7 +10,7 @@ import os
 import subprocess
 import pytz
 
-from sems_api import send_post, connect, get_bluetooth_status, get_visualize_data, get_most_recent_status
+from sems_api import send_post, connect, get_bluetooth_status, get_visualize_data, get_most_recent_status, get_latest_device_for_user
 
 
 HEADERS_SEMS_API = {}
