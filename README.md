@@ -4,7 +4,7 @@ A Python Web App that runs alongside 3M LEDPi (Also on this account) to control 
 
 The app also hooks up to the Microsoft Graph API and uses Bluetooth proximity sensing (see 3M LEDPi) to change lights semi-autonomously.
 
-**More information can be found in the [wiki](https://github.com/bhairavmehta95/3M_LEDIndicator/wiki).
+**More information can be found in the [wiki](https://github.com/bhairavmehta95/3M_LEDIndicator/wiki)**.
 
 ## Website Information
 
@@ -29,7 +29,7 @@ To configure the code for a different application:
   * Add the python module (as you would find it using Python Package Installer -- pip/PyPip) into requirements.txt. This is the file that Heroku uses to install modules into the virtual environment they are using to run the applicaiton.
 
 * Microsoft OAuth Fails with an Error Code:
-  * **The reply address 'http://mmm-led.herokuapp.com/tutorial/gettoken/...**: This problem comes when the user does not sign in with the provided URL. the _entire_ address must be typed, as Microsoft will only allow applications with an _https://_ URL to pass through their OAuth system. If a user just types (http://mmm-led.herokuapp.com) instead of (https://mmm-led.herokuapp.com), the error will be triggered.
+  * **The reply address ...**: This problem comes when the user does not sign in with the provided URL. the _entire_ address must be typed, as Microsoft will only allow applications with an _https://_ URL to pass through their OAuth system. If a user just types (http://mmm-led.herokuapp.com) instead of (https://mmm-led.herokuapp.com), the error will be triggered.
 
 
 
