@@ -1,6 +1,6 @@
 # 3M LEDIndicator
 
-A Python Web App that runs alongside 3M LEDPi (Also on this account) to control LEDs through the 3M SEMS IoT and Web/Serial communication.
+A Python Web App that runs alongside [3M LEDPi](https://github.com/bhairavmehta95/3M_LED_Pi) to control LEDs through the 3M SEMS IoT and Web/Serial communication.
 
 The app also hooks up to the Microsoft Graph API and uses Bluetooth proximity sensing (see 3M LEDPi) to change lights semi-autonomously.
 
