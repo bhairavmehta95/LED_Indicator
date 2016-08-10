@@ -34,6 +34,12 @@ To configure the code for a different application:
 * _"TypeError at /tutorial/events/"_
   * User must login one more time (too much time passed between the last time they were active on the application and now).
 
+## Contact
 
+Still having trouble?
+Contact us at:
+
+Bhairav Mehta : bhairavmehta95@gmail.com
+Ryan Pfalz : rpfalz14@gmail.com 
 
 
