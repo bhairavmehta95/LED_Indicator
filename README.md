@@ -31,6 +31,8 @@ To configure the code for a different application:
 * Microsoft OAuth Fails with an Error Code:
   * **The reply address ...**: This problem comes when the user does not sign in with the provided URL. the _entire_ address must be typed, as Microsoft will only allow applications with an _https://_ URL to pass through their OAuth system. If a user just types (http://mmm-led.herokuapp.com) instead of (https://mmm-led.herokuapp.com), the error will be triggered. As of right now, (mmm-led.herokuapp.com) defaults to the https:// version, but this may differ by machine or browser.
 
+* _"TypeError at /tutorial/events/"_
+  * User must login one more time (too much time passed between the last time they were active on the application and now).
 
 
 
